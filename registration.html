@@ -1,0 +1,54 @@
+<html>    
+    <body background="reg1.jpg">
+        <style>
+            div{
+                display:flex;
+            flex-direction: column;
+                margin:15px 250px 20px 150px;
+                background-color:aqua;
+                text-align: center;
+              
+               border-width: 10px;
+                border-color:black;
+               border-style:groove;
+               text-align:center;
+            }
+            .user,.dob,.mail,.password,.mobile,.add{
+                text-align:center;
+                
+            }
+            button{
+                text-align: center;
+            }
+        </style>
+        <div>
+      <form>
+        <h1 style="margin: 60px;">REGISTRATION</h1>
+        <label>Username</label>
+        <input type="text" name="username" class="user" id="username" placeholder="username">
+        <br><br>
+        <label>DOB</label>
+        <input type="date" name="dob" class="dob" id="dob" placeholder="DD/MM/YYYY">
+        <br><br>
+        <label>Gender</label>
+        <input type="radio" name="Gender" class="male" id="male">MALE
+        <input type="radio" name="Gender" class="female" id="female">FEMALE
+        <br><br>
+        <label>mobile no</label>
+        <input type="text" name="mobile" class="mobile" id="mobile">
+        <br><br>
+        <label>E-mail</label>
+        <input type="tex" name="mail" class="mail" id="mail">
+        <br><br>
+        <label>password</label>
+        <input type="password" name="password" id="password" placeholder="password">
+        <br><br>
+        <label>confrim password</label>
+        <input type="password" name="password" id="password" placeholder="password">
+        <br><br>
+        
+        <button>submit</button>
+    </form>
+</div>
+    </body> 
+</html>
