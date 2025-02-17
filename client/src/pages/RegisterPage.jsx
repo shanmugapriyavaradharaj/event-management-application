@@ -57,7 +57,7 @@ export default function RegisterPage() {
         </div>
 
         <div className="ml-48 w-80 mt-6">
-        <img src="../src/assets/signuppic.svg" alt="" className='w-full'/>
+        <img src="../src/assets/signuppic.jpg" alt="" className='w-full'/>
         </div>   
       
     </div>
