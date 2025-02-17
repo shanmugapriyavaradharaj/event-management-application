@@ -19,6 +19,13 @@ export default function RegisterPage() {
       return;
     }
 
+    
+    if (password.length<8) {
+      alert('Passwords must 8 characters');
+      return;
+    }
+
+
     try{
       await axios.post('/register', {
         name,
