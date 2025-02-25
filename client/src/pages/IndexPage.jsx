@@ -9,6 +9,8 @@ import { BiLike } from "react-icons/bi";
   export default function IndexPage() {
     const [events, setEvents] = useState([]);
 
+    console.log("jbhgvhb");
+    
     
 
    //! Fetch events from the server ---------------------------------------------------------------
@@ -49,7 +51,7 @@ import { BiLike } from "react-icons/bi";
       <div className="mt-1 flex flex-col">
         <div className="hidden sm:block" >
           <div href="#" className="flex item-center inset-0">
-            <img src="../src/assets/hero.jpg" alt="" className='w-full'/> 
+            <img src="../src/assets/hero.jpg" alt=""  style={{height:"500px"}} width={"100%"}/> 
           </div>
         </div>
 

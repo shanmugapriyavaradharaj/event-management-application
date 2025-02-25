@@ -17,6 +17,10 @@ import OrderSummary from './pages/OrderSummary'
 import PaymentSummary from './pages/PaymentSummary'
 import TicketPage from './pages/TicketPage'
 import CreatEvent from './pages/CreateEvent'
+import AdminDashboard from './pages/admin/admindashboard'
+import UserDashboard from './pages/admin/usermanagement'
+import EventManagement from './pages/admin/eventlist'
+import EventManagements from './pages/admin/eventlist'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials=true;
@@ -41,10 +45,19 @@ function App() {
       <Route path='/forgotpassword' element = {<ForgotPassword/>} />
       <Route path='/resetpassword' element = {<ResetPassword/>} />
       <Route path='/event/:id/ordersummary/paymentsummary' element = {<PaymentSummary />} />
-      
-    
+
+      {/* admin page  */}
+
+      {/* AdminDashboard */}
+      <Route path='/admin' element = {<AdminDashboard/>} />
+      {/* userDashboard */}
+      <Route path='/admin/usermanagement' element = {<UserDashboard/>} />
+      <Route path='/admin/eventmanagement' element = {<EventManagements/>} />
+      {/* EventManagement */}
+
     </Routes>
     </UserContextProvider>  
+    
   )
 }
 

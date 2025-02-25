@@ -18,7 +18,10 @@ const jwtSecret = "bsbsfbrnsftentwnnwnwn";
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors("*"));
+app.use(cors({
+   origin: "http://localhost:5173", // Specify your frontend URL
+   credentials: true // Allow cookies and authentication headers
+ }));
 
 
 
