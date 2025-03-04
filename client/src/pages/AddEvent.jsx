@@ -16,7 +16,8 @@ export default function AddEvent() {
     location: "",
     ticketPrice: 0,
     image: '',
-    likes: 0
+    likes: 0,
+    Quantity:0
   });
 
   const handleImageUpload = (e) => {
@@ -138,6 +139,19 @@ export default function AddEvent() {
             onChange={handleChange}
           />
         </label>
+
+        <label className='flex flex-col'>
+          Number of seats:
+          <input
+            type="number"
+            name="Quantity"
+            className=' rounded mt-2 pl-5 px-4 ring-sky-700 ring-2 h-8 border-none'
+            value={formData.Quantity}
+            onChange={handleChange}
+          />
+        </label>
+
+
         <label className='flex flex-col'>
           Image:
           <input

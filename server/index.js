@@ -208,6 +208,8 @@ app.get("/event/:id/ordersummary/paymentsummary", async (req, res) => {
    const { id } = req.params;
    try {
       const event = await Event.findById(id);
+
+      
       res.json(event);
    } catch (error) {
       res.status(500).json({ error: "Failed to fetch event from MongoDB" });
@@ -216,9 +218,14 @@ app.get("/event/:id/ordersummary/paymentsummary", async (req, res) => {
 
 app.post("/tickets", async (req, res) => {
    try {
+
       const ticketDetails = req.body;
       const newTicket = new Ticket(ticketDetails);
       await newTicket.save();
+      const event = await Event.findById(newTicket.eventid);
+      event.Quantity=event.Quantity-1
+     
+     await event.save()
       return res.status(201).json({ ticket: newTicket });
    } catch (error) {
       console.error("Error creating ticket:", error);
@@ -259,6 +266,22 @@ app.delete("/tickets/:id", async (req, res) => {
       res.status(500).json({ error: "Failed to delete ticket" });
    }
 });
+
+
+app.get("/admin/dashboard", async (req,res) => {
+
+   const events=await Event.find()
+   const Activeusers=await UserModel.find()
+   const BookedTickets=await Ticket.find()
+
+   res.status(200).json({
+      activeusers:Activeusers.length,
+      bookedTicketsCount:BookedTickets.length,
+      events:events
+
+   })
+
+})
 
 
 

@@ -11,7 +11,12 @@ import {
   TableRow,
   Paper,
   Button,
+  List,
+  ListItem,
+  ListItemText,
+  Drawer,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const initialEvents = [
   {
@@ -47,6 +52,37 @@ export default function EventManagements() {
 
   return (
     <div style={{ padding: "24px", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+
+<Drawer variant="permanent" anchor="left" sx={{ width: 240, flexShrink: 0 }}>
+        <List>
+          <Link to={"/admin"}>
+            <ListItem button>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+          </Link>
+          <Link to={"/admin/eventmanagement"}>
+            <ListItem button>
+              <ListItemText primary="Events" />
+            </ListItem>
+            </Link>
+            
+          <Link to={"/admin/usermanagement"}>
+            <ListItem button>
+              <ListItemText primary="Users" />
+            </ListItem>
+          </Link>
+
+
+
+          <ListItem button>
+            <ListItemText primary="Analytics" />
+          </ListItem>
+        </List>
+      </Drawer>
+
+      <br />
+
+      <div style={{marginLeft:"200px"}}>
       <Typography variant="h4" gutterBottom>
         Event Management
       </Typography>
@@ -94,6 +130,9 @@ export default function EventManagements() {
           </TableContainer>
         </CardContent>
       </Card>
+      </div>
+
+     
     </div>
   );
 }

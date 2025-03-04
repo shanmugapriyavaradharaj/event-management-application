@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Drawer, List, ListItem, ListItemText, Button } from "@mui/material";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { Link } from "react-router-dom";
 
 const events = [
   { id: 1, name: "Tech Conference 2025", date: "2025-04-10", status: "Upcoming" },
@@ -31,15 +32,25 @@ export default function UserDashboard() {
     <div style={{ display: "flex" }}>
       <Drawer variant="permanent" anchor="left" sx={{ width: 240, flexShrink: 0 }}>
         <List>
-          <ListItem button>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Events" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="Users" />
-          </ListItem>
+          <Link to={"/admin"}>
+            <ListItem button>
+              <ListItemText primary="Dashboard" />
+            </ListItem>
+          </Link>
+          <Link to={"/admin/eventmanagement"}>
+            <ListItem button>
+              <ListItemText primary="Events" />
+            </ListItem>
+            </Link>
+            
+          <Link to={"/admin/usermanagement"}>
+            <ListItem button>
+              <ListItemText primary="Users" />
+            </ListItem>
+          </Link>
+
+
+
           <ListItem button>
             <ListItemText primary="Analytics" />
           </ListItem>
