@@ -55,13 +55,8 @@ export default function AdminDashboard() {
 
 
      const {data}= await axios.get("http://localhost:4000/admin/dashboard")
-
      setevents(data.events);
-     
-
-     setDashboarddata(data)
-
-
+     setDashboarddata(data);
     } 
 
     fetchdata()

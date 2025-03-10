@@ -3,7 +3,7 @@ import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-export default function RegisterPage() {
+export default function AdminRegisterPage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,8 +31,7 @@ export default function RegisterPage() {
         name,
         email,
         password,
-        role:"user"
-        
+        role:"admin"        
       });
       alert('Registration Successful')
       setRedirect(true)

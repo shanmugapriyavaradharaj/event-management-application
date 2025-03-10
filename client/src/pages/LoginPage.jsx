@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { UserContext } from '../UserContext'
 
@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const {setUser} = useContext(UserContext);
+  const navigate=useNavigate()
 
 
   //! Fetch users from the server --------------------------------------------------------------
@@ -32,6 +33,12 @@ export default function LoginPage() {
         setUser(data);
         alert('Login success');
 
+        if (data.role==="user") {
+          navigate("/")
+        }else{
+          navigate("/admin")
+        }
+
         if (rememberMe) {
           // If the user checked, store their email in localStorage.
           localStorage.setItem('rememberedEmail', email);
@@ -47,9 +54,9 @@ export default function LoginPage() {
       }
   }
 
-  if(redirect){
-    return <Navigate to={'/'}/>
-  }
+  // if(redirect){
+  //   return <Navigate to={'/'}/>
+  // }
   
   return (
     <div className ="flex w-full h-full lg:ml-24 px-10 py-10 justify-between place-items-center mt-20">

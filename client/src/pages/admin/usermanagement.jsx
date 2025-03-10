@@ -1,13 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Drawer, List, ListItem, ListItemText, Button } from "@mui/material";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const events = [
-  { id: 1, name: "Tech Conference 2025", date: "2025-04-10", status: "Upcoming" },
-  { id: 2, name: "Music Fest 2025", date: "2025-06-15", status: "Ongoing" },
-  { id: 3, name: "Food Expo 2025", date: "2025-07-20", status: "Completed" },
-];
 
 const initialUsers = [
   { id: 1, name: "Alice Johnson", email: "alice@example.com", role: "admin" },
@@ -23,6 +19,39 @@ const analyticsData = [
 
 export default function UserDashboard() {
   const [users, setUsers] = useState(initialUsers);
+
+
+  const [Dashboarddata,setDashboarddata]=useState({
+    events:2,
+    activeusers:3,
+    bookedTicketsCount:1
+  })
+
+  const [events,setevents]=useState([])
+
+
+  useEffect(()=>{
+
+
+    const fetchdata= async  ()=>{
+
+
+     const {data}= await axios.get("http://localhost:4000/admin/dashboard")
+
+     setevents(data.events);
+     
+
+     setDashboarddata(data)
+     setUsers(data.users)
+
+
+    } 
+
+    fetchdata()
+
+
+  },[])
+
 
   const handleDelete = (id) => {
     setUsers(users.filter(user => user.id !== id));
@@ -70,7 +99,7 @@ export default function UserDashboard() {
           <Card>
             <CardContent>
               <Typography variant="h6">Active Users</Typography>
-              <Typography variant="h4">1,250</Typography>
+              <Typography variant="h4">{Dashboarddata.activeusers}</Typography>
             </CardContent>
           </Card>
         </div>
@@ -89,7 +118,7 @@ export default function UserDashboard() {
                 </TableHead>
                 <TableBody>
                   {events.map((event) => (
-                    <TableRow key={event.id}>
+                    <TableRow key={event._id}>
                       <TableCell>{event.name}</TableCell>
                       <TableCell>{event.date}</TableCell>
                       <TableCell>{event.status}</TableCell>

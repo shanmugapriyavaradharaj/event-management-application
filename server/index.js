@@ -43,7 +43,7 @@ app.get("/test", (req, res) => {
 });
 
 app.post("/register", async (req, res) => {
-   const { name, email, password } = req.body;
+   const { name, email, password, role } = req.body;
    console.log(req.body);
    
 
@@ -52,6 +52,7 @@ app.post("/register", async (req, res) => {
          name,
          email,
          password: bcrypt.hashSync(password, bcryptSalt),
+         role
       });
       res.json(userDoc);
    } catch (e) {
@@ -220,6 +221,7 @@ app.post("/tickets", async (req, res) => {
    try {
 
       const ticketDetails = req.body;
+      
       const newTicket = new Ticket(ticketDetails);
       await newTicket.save();
       const event = await Event.findById(newTicket.eventid);
@@ -273,11 +275,15 @@ app.get("/admin/dashboard", async (req,res) => {
    const events=await Event.find()
    const Activeusers=await UserModel.find()
    const BookedTickets=await Ticket.find()
+   const users=await UserModel.find()
+
+
 
    res.status(200).json({
       activeusers:Activeusers.length,
       bookedTicketsCount:BookedTickets.length,
-      events:events
+      events:events,
+      users
 
    })
 
