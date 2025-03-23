@@ -53,7 +53,7 @@ export default function EventManagements() {
   return (
     <div style={{ padding: "24px", backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
 
-<Drawer variant="permanent" anchor="left" sx={{ width: 240, flexShrink: 0 }}>
+      <Drawer variant="permanent" anchor="left" sx={{ width: 240, flexShrink: 0 }}>
         <List>
           <Link to={"/admin"}>
             <ListItem button>
@@ -64,11 +64,17 @@ export default function EventManagements() {
             <ListItem button>
               <ListItemText primary="Events" />
             </ListItem>
-            </Link>
-            
+          </Link>
+
           <Link to={"/admin/usermanagement"}>
             <ListItem button>
               <ListItemText primary="Users" />
+            </ListItem>
+          </Link>
+
+          <Link to={"/admin/private-events"}>
+            <ListItem button>
+              <ListItemText primary="Private-Events" />
             </ListItem>
           </Link>
 
@@ -82,57 +88,57 @@ export default function EventManagements() {
 
       <br />
 
-      <div style={{marginLeft:"200px"}}>
-      <Typography variant="h4" gutterBottom>
-        Event Management
-      </Typography>
+      <div style={{ marginLeft: "200px" }}>
+        <Typography variant="h4" gutterBottom>
+          Event Management
+        </Typography>
 
-      <Card>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Events Overview
-          </Typography>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Title</TableCell>
-                  <TableCell>Organizer</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Location</TableCell>
-                  <TableCell>Participants</TableCell>
-                  <TableCell>Income ($)</TableCell>
-                  <TableCell>Action</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {events.map((event) => (
-                  <TableRow key={event.id}>
-                    <TableCell>{event.title}</TableCell>
-                    <TableCell>{event.organizedBy}</TableCell>
-                    <TableCell>{event.eventDate}</TableCell>
-                    <TableCell>{event.location}</TableCell>
-                    <TableCell>{event.Participants}</TableCell>
-                    <TableCell>{event.Income}</TableCell>
-                    <TableCell>
-                      <Button
-                        variant="contained"
-                        color="secondary"
-                        onClick={() => handleDelete(event.id)}
-                      >
-                        Delete
-                      </Button>
-                    </TableCell>
+        <Card>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              Events Overview
+            </Typography>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Title</TableCell>
+                    <TableCell>Organizer</TableCell>
+                    <TableCell>Date</TableCell>
+                    <TableCell>Location</TableCell>
+                    <TableCell>Participants</TableCell>
+                    <TableCell>Income ($)</TableCell>
+                    <TableCell>Action</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-      </Card>
+                </TableHead>
+                <TableBody>
+                  {events.map((event) => (
+                    <TableRow key={event.id}>
+                      <TableCell>{event.title}</TableCell>
+                      <TableCell>{event.organizedBy}</TableCell>
+                      <TableCell>{event.eventDate}</TableCell>
+                      <TableCell>{event.location}</TableCell>
+                      <TableCell>{event.Participants}</TableCell>
+                      <TableCell>{event.Income}</TableCell>
+                      <TableCell>
+                        <Button
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => handleDelete(event.id)}
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </CardContent>
+        </Card>
       </div>
 
-     
+
     </div>
   );
 }

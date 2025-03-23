@@ -95,8 +95,8 @@ app.get("/profile", (req, res) => {
    if (token) {
       jwt.verify(token, jwtSecret, {}, async (err, userData) => {
          if (err) throw err;
-         const { name, email, _id } = await UserModel.findById(userData.id);
-         res.json({ name, email, _id });
+         const { name, email, _id,role } = await UserModel.findById(userData.id);
+         res.json({ name, email,role, _id });
       });
    } else {
       res.json(null);
@@ -288,6 +288,12 @@ app.get("/admin/dashboard", async (req,res) => {
    })
 
 })
+
+
+
+app.use("/api/events", require("./routes/events"));
+app.use("/api", require("./routes/booking"));
+
 
 
 

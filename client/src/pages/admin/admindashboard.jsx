@@ -16,11 +16,11 @@ function getStatus(eventDate) {
   const event = new Date(eventDate);
 
   if (event > today) {
-      return "Upcoming";
+    return "Upcoming";
   } else if (event.toDateString() === today.toDateString()) {
-      return "Ongoing";
+    return "Ongoing";
   } else {
-      return "Completed";
+    return "Completed";
   }
 }
 
@@ -39,33 +39,33 @@ export default function AdminDashboard() {
 
 
 
-  const [Dashboarddata,setDashboarddata]=useState({
-    events:2,
-    activeusers:3,
-    bookedTicketsCount:1
+  const [Dashboarddata, setDashboarddata] = useState({
+    events: 2,
+    activeusers: 3,
+    bookedTicketsCount: 1
   })
 
-  const [events,setevents]=useState([])
+  const [events, setevents] = useState([])
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
 
-    const fetchdata= async  ()=>{
+    const fetchdata = async () => {
 
 
-     const {data}= await axios.get("http://localhost:4000/admin/dashboard")
-     setevents(data.events);
-     setDashboarddata(data);
-    } 
+      const { data } = await axios.get("http://localhost:4000/admin/dashboard")
+      setevents(data.events);
+      setDashboarddata(data);
+    }
 
     fetchdata()
 
 
-  },[])
+  }, [])
 
 
-  
+
 
 
 
@@ -75,13 +75,11 @@ export default function AdminDashboard() {
     <div style={{ display: "flex" }}>
       <Drawer variant="permanent" anchor="left" sx={{ width: 240, flexShrink: 0 }}>
         <List>
-
           <Link to={"/admin"}>
             <ListItem button>
               <ListItemText primary="Dashboard" />
             </ListItem>
           </Link>
-
           <Link to={"/admin/eventmanagement"}>
             <ListItem button>
               <ListItemText primary="Events" />
@@ -94,6 +92,19 @@ export default function AdminDashboard() {
             </ListItem>
           </Link>
 
+          <Link to={"/admin/private-events"}>
+            <ListItem button>
+              <ListItemText primary="Create-Private-Event" />
+            </ListItem>
+          </Link>
+          <Link to={"/admin/private-events-list"}>
+            <ListItem button>
+              <ListItemText primary="Private-Events" />
+            </ListItem>
+          </Link>
+
+
+
           <ListItem button>
             <ListItemText primary="Analytics" />
           </ListItem>
@@ -101,29 +112,29 @@ export default function AdminDashboard() {
       </Drawer>
       <div style={{ padding: "24px", backgroundColor: "#f5f5f5", minHeight: "100vh", flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
-        
+
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px", marginBottom: "24px" }}>
-          <Card sx={{backgroundColor:"lightyellow"}}>
+          <Card sx={{ backgroundColor: "lightyellow" }}>
             <CardContent>
               <Typography variant="h6">Total Events</Typography>
               <Typography variant="h4">{Dashboarddata.events.length}</Typography>
             </CardContent>
           </Card>
 
-          <Card sx={{backgroundColor:"lightgreen"}} >
+          <Card sx={{ backgroundColor: "lightgreen" }} >
             <CardContent>
               <Typography variant="h6">Active Users</Typography>
               <Typography variant="h4">{Dashboarddata.activeusers}</Typography>
             </CardContent>
           </Card>
-          <Card sx={{backgroundColor:"lightblue"}} >
+          <Card sx={{ backgroundColor: "lightblue" }} >
             <CardContent>
               <Typography variant="h6">Booked Tickets</Typography>
               <Typography variant="h4">{Dashboarddata.bookedTicketsCount}</Typography>
             </CardContent>
           </Card>
         </div>
-        
+
         <Card style={{ marginBottom: "24px" }}>
           <CardContent>
             <Typography variant="h6" gutterBottom>Event Overview</Typography>
@@ -137,11 +148,11 @@ export default function AdminDashboard() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  { events.map((event) => (
+                  {events.map((event) => (
                     <TableRow key={event._id}>
                       <TableCell>{event.title}</TableCell>
                       <TableCell>{event.eventDate}</TableCell>
-                      <TableCell style={{backgroundColor:getStatus(event.eventDate)=="Upcoming"?"green":""}}>{getStatus(event.eventDate)}</TableCell>
+                      <TableCell style={{ backgroundColor: getStatus(event.eventDate) == "Upcoming" ? "green" : "" }}>{getStatus(event.eventDate)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -149,7 +160,7 @@ export default function AdminDashboard() {
             </TableContainer>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardContent>
             <Typography variant="h6" gutterBottom>Attendee Analytics</Typography>
