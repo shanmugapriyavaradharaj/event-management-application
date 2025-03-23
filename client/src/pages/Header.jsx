@@ -6,7 +6,7 @@ import { RxExit } from 'react-icons/rx';
 import { BsFillCaretDownFill } from 'react-icons/bs';
 import { RiDashboardFill } from "react-icons/ri";
 
-
+//
 export default function Header() {
   const { user, setUser } = useContext(UserContext);
   console.log(user);
@@ -93,7 +93,20 @@ export default function Header() {
           </div>
         )}
 
+
+        <Link to={'/eventall'}> {/*TODO:Route create event page after creating it */}
+          <div className='hidden md:flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
+            <button>
+             
+            </button>
+            <div className='font-bold color-primary text-sm'>Private Events</div>
+          </div>
+        </Link>
+
         {
+
+
+
           user && <>
 
             <Link to={'/createEvent'}> {/*TODO:Route create event page after creating it */}

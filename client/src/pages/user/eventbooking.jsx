@@ -54,7 +54,7 @@ const Booking = () => {
     }
 
     setLoading(true);
-    
+
     setPayment(true);
 
     setLoading(false);
@@ -123,18 +123,15 @@ const Booking = () => {
             >
               {loading ? <CircularProgress size={24} /> : "Confirm Booking"}
             </Button>
+    
+            {
+              payment ? (<><DummyPayment bookingdata={{
+                ...formData,
+                eventId,
+                totalAmount: event.totalPrice,
+              }} /></>) : null
+            }
 
-          {
-
-            
-
-payment  ? (<><DummyPayment bookingdata={ {
-              ...formData,
-              eventId,
-              totalAmount: event.totalPrice,
-            }} /></>):null
-          }
-          
 
           </Paper>
         </Grid>
