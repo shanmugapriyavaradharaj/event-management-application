@@ -11,6 +11,7 @@ export function UserContextProvider({children}){
     if (!user) {
       axios.get('/profile').then(({data}) =>{
         setUser(data);
+        localStorage.setItem("user",JSON.stringify(data))
       })
     }
   },[]);

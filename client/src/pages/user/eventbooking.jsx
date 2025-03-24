@@ -15,17 +15,22 @@ import "swiper/css";
 import { UserContext } from "../../UserContext";
 import DummyPayment from "./DummyPayment";
 const Booking = () => {
-  const { user, setUser } = useContext(UserContext);
+
+  const user = JSON.parse(localStorage.getItem("user"))
+
   const { eventId } = useParams(); // Get event ID from URL
   const [event, setEvent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [payment, setPayment] = useState(false);
+  console.log(user);
   const [formData, setFormData] = useState({
-    customerName: user.name,
-    customerEmail: email,
+    customerName: user?.name,
+    customerEmail:user?.email,
     customerPhone: "",
   });
 
+ 
+  
   // Fetch event details
   useEffect(() => {
     const fetchEvent = async () => {
@@ -123,7 +128,7 @@ const Booking = () => {
             >
               {loading ? <CircularProgress size={24} /> : "Confirm Booking"}
             </Button>
-    
+
             {
               payment ? (<><DummyPayment bookingdata={{
                 ...formData,
