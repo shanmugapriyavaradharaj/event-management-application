@@ -3,6 +3,7 @@ import axios from "axios";
 import { Card, CardContent, CardMedia, Typography, Button, TextField, MenuItem, Grid } from "@mui/material";
 import Carousel from "react-material-ui-carousel";
 import { useNavigate } from "react-router-dom";
+import Header from "../Header";
 
 const Eventsall = () => {
   const [search, setSearch] = useState("");
@@ -26,7 +27,8 @@ const Eventsall = () => {
 
   return (
     <div style={{ padding: 20 }}>
-
+  
+    <Header/>
 
 
       <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>

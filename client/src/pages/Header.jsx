@@ -97,51 +97,38 @@ export default function Header() {
         <Link to={'/eventall'}> {/*TODO:Route create event page after creating it */}
           <div className='hidden md:flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
             <button>
-             
+
             </button>
             <div className='font-bold color-primary text-sm'>Private Events</div>
           </div>
         </Link>
 
         {
-
-
-
           user && <>
-
-            <Link to={'/createEvent'}> {/*TODO:Route create event page after creating it */}
-              <div className='hidden md:flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
-                <button>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 stroke-3 py-1">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                  </svg>
-                </button>
-                <div className='font-bold color-primary text-sm'>Create Event</div>
-              </div>
-            </Link>
-
-
             {
               user.role === 'admin' && (
                 <>
-
-
+                  <Link to={'/createEvent'}> {/*TODO:Route create event page after creating it */}
+                    <div className='hidden md:flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
+                      <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 stroke-3 py-1">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                        </svg>
+                      </button>
+                      <div className='font-bold color-primary text-sm'>Create Event</div>
+                    </div>
+                  </Link>
                   <Link to={'/admin'}> {/*TODO:Route create event page after creating it */}
                     <div className='hidden md:flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
                       <button>
                         <RiDashboardFill style={{ fontSize: "25px", height: "30px" }} />
                       </button>
-
                       <div className='font-bold color-primary text-sm'>Dashboard</div>
                     </div>
                   </Link>
-
-                  {/* /admin */}
-
                 </>
               )
             }
-
             <div className='hidden lg:flex gap-5 text-sm'>
               <Link to={'/wallet'}> {/*TODO:Route wallet page after creating it */}
                 <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
@@ -151,7 +138,6 @@ export default function Header() {
                   <div>Wallet</div>
                 </div >
               </Link>
-
               <Link to={'/verification'}> {/*TODO:Route verification center page after creating it */}
                 <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 py-1">
@@ -160,7 +146,6 @@ export default function Header() {
                   <div>Center</div>
                 </div>
               </Link>
-
               <Link to={'/calendar'}> {/*TODO:Route calendar page after creating it */}
                 <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 py-1">
@@ -173,7 +158,6 @@ export default function Header() {
             </div>
           </>
         }
-
         <div>
           <div className='flex flex-col place-items-center py-1 px-3 rounded cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 py-1">
@@ -222,15 +206,19 @@ export default function Header() {
             {/* TODO: */}
             <nav className={`block ${isMenuOpen ? 'block' : 'hidden'} `}>
               <div className="flex flex-col font-semibold text-[16px]">
-                <Link className="flex hover:bg-background hover:shadow py-2 pt-3 pl-6 pr-8 rounded-lg" to={'/createEvent'} >
-                  Create Event
-                </Link>
 
                 {
                   user.role === 'admin' && (
-                    <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/admin'}>
-                      <div>Dashboard</div>
-                    </Link>
+                    <>
+                      <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/admin'}>
+                        <div>Dashboard</div>
+                      </Link>
+
+                      <Link className="flex hover:bg-background hover:shadow py-2 pt-3 pl-6 pr-8 rounded-lg" to={'/createEvent'} >
+                        Create Event
+                      </Link>
+
+                    </>
                   )
                 }
 
@@ -238,6 +226,10 @@ export default function Header() {
 
                 <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/wallet'}>
                   <div>Wallet</div>
+                </Link>
+
+                <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/mybooking-details'}>
+                  <div>My Booking Details</div>
                 </Link>
 
                 <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/verification'}>

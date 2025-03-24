@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { TextField, Button, Container, Typography, MenuItem, Box, Grid, Grid2, Drawer, List, ListItem, ListItemText } from "@mui/material";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Sidebar from "./sidebar/sidebar";
+import Header from "../Header";
 
 
 const CreateEvent = () => {
@@ -100,43 +102,11 @@ const CreateEvent = () => {
 
     return (
         <>
+
+         <Header/>  
             <div style={{ padding: "24px", backgroundColor: "#f5f5f5", minHeight: "100vh", flexGrow: 1 }}>
 
- <Drawer variant="permanent" anchor="left" sx={{ width: 240, flexShrink: 0 }}>
-                    <List>
-                        <Link to={"/admin"}>
-                            <ListItem button>
-                                <ListItemText primary="Dashboard" />
-                            </ListItem>
-                        </Link>
-                        <Link to={"/admin/eventmanagement"}>
-                            <ListItem button>
-                                <ListItemText primary="Events" />
-                            </ListItem>
-                        </Link>
-
-                        <Link to={"/admin/usermanagement"}>
-                            <ListItem button>
-                                <ListItemText primary="Users" />
-                            </ListItem>
-                        </Link>
-
-                        <Link to={"/admin/private-events"}>
-                            <ListItem button>
-                                <ListItemText primary="Create-Private-Event" />
-                            </ListItem>
-                        </Link>
-                        <Link to={"/admin/private-events-list"}>
-                            <ListItem button>
-                                <ListItemText primary="Private-Events" />
-                            </ListItem>
-                        </Link>
-
-                        <ListItem button>
-                            <ListItemText primary="Analytics" />
-                        </ListItem>
-                    </List>
-                </Drawer>
+               <Sidebar/>
 
                 <div style={{ marginLeft: "" }}>
                     <Container maxWidth="sm">

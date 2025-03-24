@@ -1,4 +1,6 @@
 const Event = require("../models/events.model");
+const UserModel = require("../models/User");
+const { sendEventLaunchforPrivate } = require("../utils/email");
 
 // Create a new event
 exports.createEvent = async (req, res) => {
@@ -14,6 +16,19 @@ exports.createEvent = async (req, res) => {
         };
         const event = new Event(eventData);
         await event.save();
+
+        const user= await UserModel.find()
+        user.map(async(user)=>{
+
+            if(user.role="user"){
+                await sendEventLaunchforPrivate(user.email,event)
+            }
+
+
+        }) 
+
+
+
         res.status(201).json({ success: true, message: "Event created successfully", event });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });

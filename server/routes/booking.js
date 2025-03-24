@@ -10,6 +10,9 @@ router.get('/bookings', bookingController.getAllBookings);
 
 // Get a booking by ID
 router.get('/bookings/:id', bookingController.getBookingById);
+router.get('/bookings/my/:email', bookingController.getmyAllBookings);
+
+
 
 // Update booking status
 router.put('/bookings/:id', bookingController.updateBookingStatus);

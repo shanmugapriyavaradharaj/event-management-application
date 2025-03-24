@@ -27,6 +27,11 @@ import CreateEvent from './pages/admin/privateevents'
 import PrivateEventList from './pages/admin/privateEventslist'
 import Booking from './pages/user/eventbooking'
 import Eventsall from './pages/user/Eventsall'
+import PaymentSuccess from './pages/payment/paymentsucces'
+import BookingTable from './pages/admin/Bookings/getAllBookings'
+import MyBookings from './pages/user/mybookings'
+import TicketTable from './pages/admin/tickets/getallTickets'
+import AllTicketDetails from './pages/admin/tickets/TicketPage'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials=true;
@@ -54,8 +59,16 @@ function App() {
       <Route path='/forgotpassword' element = {<ForgotPassword/>} />
       <Route path='/resetpassword' element = {<ResetPassword/>} />
       <Route path='/event/:id/ordersummary/paymentsummary' element = {<PaymentSummary />} />
+      <Route path='/success' element = {<PaymentSuccess/>} />
       <Route path="/booking/:eventId" element={<Booking />} />
       <Route path='/eventall' element = {<Eventsall/>} />
+      <Route path='/mybooking-details' element = {<MyBookings/>} />
+
+
+      
+
+      
+      
 
       {/* http://localhost:5173/admin/register */}
 
@@ -65,7 +78,10 @@ function App() {
       <Route path='/admin/usermanagement' element = {<UserDashboard/>} />
       <Route path='/admin/eventmanagement' element = {<EventManagements/>} />
       <Route path='/admin/private-events' element = {<CreateEvent/>} />
-    
+      <Route path='/admin/bookingtable' element = {<BookingTable/>} />
+      <Route path='/admin/booked-tickets' element = {<AllTicketDetails/>} />
+      
+      
 
       {/* Eventsall */}
       {/* PrivateEvents */}

@@ -10,6 +10,7 @@ const multer = require("multer");
 const path = require("path");
 
 const Ticket = require("./models/Ticket");
+const { sendEventLaunch, sendBookingAdminlEmail, sendBookingConfirmationmailEmail } = require("./utils/email");
 
 const app = express();
 
@@ -136,6 +137,21 @@ app.post("/createEvent", upload.single("image"), async (req, res) => {
       eventData.image = req.file ? req.file.path : "";
       const newEvent = new Event(eventData);
       await newEvent.save();
+
+      const user= await UserModel.find()
+
+      user.map(async (user)=>{
+
+        if( user.role=="user"){
+
+         await sendEventLaunch(user.email,newEvent)
+
+        }
+
+      })
+
+      await 
+
       res.status(201).json(newEvent);
    } catch (error) {
       res.status(500).json({ error: "Failed to save the event to MongoDB" });
@@ -154,12 +170,23 @@ app.get("/createEvent", async (req, res) => {
 app.get("/event/:id", async (req, res) => {
    const { id } = req.params;
    try {
-      const event = await Event.findById(id);
-      res.json(event);
+      const updatedEvent = await Event.findByIdAndUpdate(id, req.body, { new: true });
+      res.json(updatedEvent);
    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch event from MongoDB" });
+      res.status(500).json({ error: "Failed to update event in MongoDB" });
    }
 });
+
+app.put("/event/:id", async (req, res) => {
+   const { id } = req.params;
+   try {
+      const updatedEvent = await Event.findByIdAndUpdate(id, req.body, { new: true });
+      res.json(updatedEvent);
+   } catch (error) {
+      res.status(500).json({ error: "Failed to update event in MongoDB" });
+   }
+});
+
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
@@ -228,6 +255,24 @@ app.post("/tickets", async (req, res) => {
       event.Quantity=event.Quantity-1
      
      await event.save()
+
+     const user= await UserModel.find()
+     user.map(async (user)=>{
+
+            if (user.role==="admin") {
+
+               await  sendBookingAdminlEmail(user.email,ticketDetails)
+               
+            } else{
+
+               await sendBookingConfirmationmailEmail(user.email,ticketDetails)
+
+            }  
+
+
+
+     })
+
       return res.status(201).json({ ticket: newTicket });
    } catch (error) {
       console.error("Error creating ticket:", error);
@@ -235,7 +280,7 @@ app.post("/tickets", async (req, res) => {
    }
 });
 
-app.get("/tickets/:id", async (req, res) => {
+app.get("/tickets", async (req, res) => {
    try {
       const tickets = await Ticket.find();
       res.json(tickets);

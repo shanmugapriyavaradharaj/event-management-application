@@ -10,21 +10,49 @@ const DummyPayment = (props) => {
   const [cvv, setCvv] = useState("");
   const [open, setOpen] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const validateCardDetails = () => {
+    let newErrors = {};
+    
+    // Validate Card Number (16 digits, numeric)
+    if (!/^[0-9]{16}$/.test(cardNumber)) {
+      newErrors.cardNumber = "Card number must be 16 digits";
+    }
+
+    // Validate Expiry Date (MM/YY format, year >= 2025)
+    const match = expiryDate.match(/^(0[1-9]|1[0-2])\/(\d{4})$/);
+    if (!match) {
+      newErrors.expiryDate = "Invalid format (MM/YYYY)";
+    } else {
+      const year = parseInt(match[2], 10);
+      if (year < 2025) {
+        newErrors.expiryDate = "Year must be 2025 or later";
+      }
+    }
+
+    // Validate CVV (3 or 4 digits, numeric)
+    if (!/^[0-9]{3,4}$/.test(cvv)) {
+      newErrors.cvv = "CVV must be 3 or 4 digits";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handlePayment = async () => {
+    if (!validateCardDetails()) return;
+
     setSuccess(true);
+    const bookingData = props.bookingdata;
 
-  const bookingData=  props.bookingdata
-
-  try {
-    await axios.post("http://localhost:4000/api/bookings", bookingData);///api/bookings
-    alert("Booking successful!");
-  } catch (error) {
-    console.log("Error booking event", error);
-    
-    alert("Error booking event");
-  }
-
+    try {
+      await axios.post("http://localhost:4000/api/bookings", bookingData);
+      alert("Booking successful!");
+    } catch (error) {
+      console.log("Error booking event", error);
+      alert("Error booking event");
+    }
 
     setTimeout(() => {
       setOpen(false);
@@ -34,9 +62,13 @@ const DummyPayment = (props) => {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+      <br />
+   
+   <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+   <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
         Make Payment
       </Button>
+   </div>
 
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box
@@ -62,14 +94,18 @@ const DummyPayment = (props) => {
             margin="normal"
             value={cardNumber}
             onChange={(e) => setCardNumber(e.target.value)}
+            error={!!errors.cardNumber}
+            helperText={errors.cardNumber}
           />
           <TextField
-            label="Expiry Date (MM/YY)"
+            label="Expiry Date (MM/YYYY)"
             variant="outlined"
             fullWidth
             margin="normal"
             value={expiryDate}
             onChange={(e) => setExpiryDate(e.target.value)}
+            error={!!errors.expiryDate}
+            helperText={errors.expiryDate}
           />
           <TextField
             label="CVV"
@@ -78,6 +114,8 @@ const DummyPayment = (props) => {
             margin="normal"
             value={cvv}
             onChange={(e) => setCvv(e.target.value)}
+            error={!!errors.cvv}
+            helperText={errors.cvv}
           />
           <Button
             variant="contained"

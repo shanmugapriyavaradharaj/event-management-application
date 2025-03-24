@@ -3,6 +3,8 @@ import { Card, CardContent, Typography, Table, TableBody, TableCell, TableContai
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Sidebar from "./sidebar/sidebar";
+import Header from "../Header";
 
 // const events = [
 //   { id: 1, name: "Tech Conference 2025", date: "2025-04-10", status: "Upcoming" },
@@ -72,44 +74,10 @@ export default function AdminDashboard() {
 
 
   return (
+    <>
+    <Header/>
     <div style={{ display: "flex" }}>
-      <Drawer variant="permanent" anchor="left" sx={{ width: 240, flexShrink: 0 }}>
-        <List>
-          <Link to={"/admin"}>
-            <ListItem button>
-              <ListItemText primary="Dashboard" />
-            </ListItem>
-          </Link>
-          <Link to={"/admin/eventmanagement"}>
-            <ListItem button>
-              <ListItemText primary="Events" />
-            </ListItem>
-          </Link>
-
-          <Link to={"/admin/usermanagement"}>
-            <ListItem button>
-              <ListItemText primary="Users" />
-            </ListItem>
-          </Link>
-
-          <Link to={"/admin/private-events"}>
-            <ListItem button>
-              <ListItemText primary="Create-Private-Event" />
-            </ListItem>
-          </Link>
-          <Link to={"/admin/private-events-list"}>
-            <ListItem button>
-              <ListItemText primary="Private-Events" />
-            </ListItem>
-          </Link>
-
-
-
-          <ListItem button>
-            <ListItemText primary="Analytics" />
-          </ListItem>
-        </List>
-      </Drawer>
+    <Sidebar/>
       <div style={{ padding: "24px", backgroundColor: "#f5f5f5", minHeight: "100vh", flexGrow: 1 }}>
         <Typography variant="h4" gutterBottom>Admin Dashboard</Typography>
 
@@ -176,5 +144,6 @@ export default function AdminDashboard() {
         </Card>
       </div>
     </div>
+    </>
   );
 }

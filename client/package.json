@@ -16,6 +16,9 @@
     "@mui/material": "^6.4.5",
     "axios": "^1.4.0",
     "date-fns": "^2.30.0",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
+    "lottie-react": "^2.4.1",
     "mongoose": "^7.4.4",
     "prettylink": "^1.1.0",
     "qr-image": "^3.2.0",
@@ -24,9 +27,11 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "react-material-ui-carousel": "^3.4.2",
+    "react-qr-code": "^2.0.15",
     "react-router-dom": "^6.12.1",
     "recharts": "^2.15.1",
-    "swiper": "^11.2.6"
+    "swiper": "^11.2.6",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.37",
