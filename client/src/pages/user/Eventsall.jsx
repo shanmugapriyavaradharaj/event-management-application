@@ -31,7 +31,7 @@ const Eventsall = () => {
     <Header/>
 
 
-      <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
+      <div style={{ display: "flex", gap: 10, marginBottom: -100 ,padding:"100px"}}>
         <TextField
           label="Search Event"
           variant="outlined"
@@ -58,7 +58,7 @@ const Eventsall = () => {
           onChange={(e) => setPrice(e.target.value)}
         />
       </div>
-      <Grid container spacing={3}>
+      <Grid container spacing={1} sx={{padding:"100px"}} >
         {filteredEvents.map((event) => (
           <Grid item xs={12} sm={6} md={4} key={event._id}>
             <Card>

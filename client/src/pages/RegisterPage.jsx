@@ -19,6 +19,12 @@ export default function RegisterPage() {
       return;
     }
 
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+    if (!specialCharRegex.test(password)) {
+      alert('Password must contain at least one special character.');
+      return;
+    }
+
     
     if (password.length<8) {
       alert('Passwords must 8 characters');
