@@ -32,64 +32,70 @@ import BookingTable from './pages/admin/Bookings/getAllBookings'
 import MyBookings from './pages/user/mybookings'
 import TicketTable from './pages/admin/tickets/getallTickets'
 import AllTicketDetails from './pages/admin/tickets/TicketPage'
+import UnauthorizedPage from './unauthorised'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
-axios.defaults.withCredentials=true;
+axios.defaults.withCredentials = true;
 
 function App() {
+
+
+  const user = JSON.parse(localStorage.getItem("user"))
+
   return (
-    <UserContextProvider> 
-    <Routes>
-            
-      <Route path='/' element={<Layout />}>
-        <Route index element = {<IndexPage />} />
-        <Route path='/useraccount' element = {<UserAccountPage />}/>
-        <Route path='/createEvent' element = {<AddEvent/>} />
-        <Route path='/event/:id' element= {<EventPage/>} />
-        <Route path='/calendar' element={<CalendarView />} />
-        <Route path='/wallet' element={<TicketPage />}/>
-        <Route path='/event/:id/ordersummary' element = {<OrderSummary />} />
-
-      </Route>
-
-      <Route path='/register' element={<RegisterPage />}/>
-      <Route path='/admin/register' element={<AdminRegisterPage />}/>
-      <Route path='/admin/private-events-list' element={<PrivateEventList />} />
-      <Route path='/login' element={<LoginPage />}/>
-      <Route path='/forgotpassword' element = {<ForgotPassword/>} />
-      <Route path='/resetpassword' element = {<ResetPassword/>} />
-      <Route path='/event/:id/ordersummary/paymentsummary' element = {<PaymentSummary />} />
-      <Route path='/success' element = {<PaymentSuccess/>} />
-      <Route path="/booking/:eventId" element={<Booking />} />
-      <Route path='/eventall' element = {<Eventsall/>} />
-      <Route path='/mybooking-details' element = {<MyBookings/>} />
+    <UserContextProvider>
+      <Routes>
 
 
-      
+        {/*user   */}
 
-      
-      
+        <Route path='/' element={<Layout />}>
+          <Route index element={<IndexPage />} />
+          <Route path='/useraccount' element={<UserAccountPage />} />
+          <Route path='/event/:id' element={<EventPage />} />
+          <Route path='/calendar' element={<CalendarView />} />
+          <Route path='/wallet' element={<TicketPage />} />
+          <Route path='/event/:id/ordersummary' element={<OrderSummary />} />
+        </Route>
+        <Route path='/mybooking-details' element={<MyBookings />} />
+        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/admin/register' element={<AdminRegisterPage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
+        <Route path='/resetpassword' element={<ResetPassword />} />
+        <Route path='/event/:id/ordersummary/paymentsummary' element={<PaymentSummary />} />
+        <Route path='/success' element={<PaymentSuccess />} />
+        <Route path="/booking/:eventId" element={<Booking />} />
+        <Route path='/eventall' element={<Eventsall />} />
 
-      {/* http://localhost:5173/admin/register */}
+        {/* admin */}
 
-      {/* AdminDashboard */}
-      <Route path='/admin' element = {<AdminDashboard/>} />
-      {/* userDashboard */}
-      <Route path='/admin/usermanagement' element = {<UserDashboard/>} />
-      <Route path='/admin/eventmanagement' element = {<EventManagements/>} />
-      <Route path='/admin/private-events' element = {<CreateEvent/>} />
-      <Route path='/admin/bookingtable' element = {<BookingTable/>} />
-      <Route path='/admin/booked-tickets' element = {<AllTicketDetails/>} />
-      
-      
+        {/* http://localhost:5173/admin/register */}
+        {
+          user && (
+            <>
 
-      {/* Eventsall */}
-      {/* PrivateEvents */}
+              {
+                user.role === "admin" ? <>
+                  <Route path='/createEvent' element={<AddEvent />} />
+                  <Route path='/admin/private-events-list' element={<PrivateEventList />} />
+                  <Route path='/admin' element={<AdminDashboard />} />
+                  <Route path='/admin/usermanagement' element={<UserDashboard />} />
+                  <Route path='/admin/eventmanagement' element={<EventManagements />} />
+                  <Route path='/admin/private-events' element={<CreateEvent />} />
+                  <Route path='/admin/bookingtable' element={<BookingTable />} />
+                  <Route path='/admin/booked-tickets' element={<AllTicketDetails />} />
+                </> : null
 
-     
-    </Routes>
-    </UserContextProvider>  
-    
+              }
+            </>
+          )
+        }
+        ~
+        <Route path='/*' element={<UnauthorizedPage />} />
+      </Routes>
+    </UserContextProvider>
+
   )
 }
 
