@@ -82,10 +82,10 @@ function App() {
               {
                 user.role === "admin" ? <>
                   <Route path='/createEvent' element={<AddEvent />} />
-                  <Route path='/admin/AddEvent' element={<EventType />} />
-                  <Route path='/admin/AddVenue' element={<Venue />} />
-                  <Route path='/admin/AddHotel' element={<Hotel />} />
-                  <Route path='/admin/AddTransport' element={<Transportation/>}/>
+                  <Route path='/admin/EventType' element={<EventType />} />
+                  <Route path='/admin/Venue' element={<Venue />} />
+                  <Route path='/admin/Hotel' element={<Hotel />} />
+                  <Route path='/admin/Transportation' element={<Transportation/>}/>
                   <Route path='/admin/private-events-list' element={<PrivateEventList />} />
                   <Route path='/admin' element={<AdminDashboard />} />
                   <Route path='/admin/usermanagement' element={<UserDashboard />} />
