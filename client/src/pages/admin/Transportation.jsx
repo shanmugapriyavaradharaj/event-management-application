@@ -1,7 +1,7 @@
 import  { useContext, useState } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../UserContext';
-import { image } from 'qr-image';
+
 
 export default function Tansportation() {
   const {user} = useContext(UserContext);
