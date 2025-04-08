@@ -36,6 +36,7 @@ import TicketTable from './pages/admin/tickets/getallTickets'
 import AllTicketDetails from './pages/admin/tickets/TicketPage'
 import UnauthorizedPage from './unauthorised'
 import Hotel from './pages/admin/Hotel'
+import Transportation from './pages/admin/Transportation'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials = true;
@@ -84,6 +85,7 @@ function App() {
                   <Route path='/admin/AddEvent' element={<EventType />} />
                   <Route path='/admin/AddVenue' element={<Venue />} />
                   <Route path='/admin/AddHotel' element={<Hotel />} />
+                  <Route path='/admin/AddTransport' element={<Transportation/>}/>
                   <Route path='/admin/private-events-list' element={<PrivateEventList />} />
                   <Route path='/admin' element={<AdminDashboard />} />
                   <Route path='/admin/usermanagement' element={<UserDashboard />} />
