@@ -361,7 +361,7 @@ app.post("/AddEvent", upload.single("image"), async (req, res) => {
 
       user.map(async (user)=>{
 
-        if( user.role=="user"){
+        if( user.role=="admin"){
 
          await sendEventLaunch(user.email,newEvent)
 

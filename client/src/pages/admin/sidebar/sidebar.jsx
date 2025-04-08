@@ -28,6 +28,11 @@ export default function Sidebar() {
                                     <ListItemText primary="AddVenue" />
                                 </ListItem>
                                 </Link>
+                                <Link to={"/admin/Hotel"}>
+                                <ListItem button>
+                                    <ListItemText primary="AddHotel" />
+                                </ListItem>
+                                </Link>
                                 <Link to={"/admin/eventmanagement"}>
                                     <ListItem button>
                                         <ListItemText primary="Events" />
