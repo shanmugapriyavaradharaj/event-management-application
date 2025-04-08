@@ -12,7 +12,9 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import AddEvent from './pages/AddEvent'
 import EventPage from './pages/EventPage'
+import EventType from './pages/admin/EventType'
 import CalendarView from './pages/CalendarView'
+import Venue from './pages/admin/venue'
 import OrderSummary from './pages/OrderSummary'
 import PaymentSummary from './pages/PaymentSummary'
 import TicketPage from './pages/TicketPage'
@@ -78,6 +80,8 @@ function App() {
               {
                 user.role === "admin" ? <>
                   <Route path='/createEvent' element={<AddEvent />} />
+                  <Route path='/admin/AddEvent' element={<EventType />} />
+                  <Route path='/admin/AddVenue' element={<Venue />} />
                   <Route path='/admin/private-events-list' element={<PrivateEventList />} />
                   <Route path='/admin' element={<AdminDashboard />} />
                   <Route path='/admin/usermanagement' element={<UserDashboard />} />

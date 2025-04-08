@@ -17,7 +17,17 @@ export default function Sidebar() {
                                     <ListItemText primary="Create-public-event" />
                                 </ListItem>
                                 </Link>
-
+                                <Link to={"/admin/EventType"}>
+                                <ListItem button>
+                                    <ListItemText primary="AddEvent" />
+                                </ListItem>
+                                </Link>
+                                
+                                <Link to={"/admin/Venue"}>
+                                <ListItem button>
+                                    <ListItemText primary="AddVenue" />
+                                </ListItem>
+                                </Link>
                                 <Link to={"/admin/eventmanagement"}>
                                     <ListItem button>
                                         <ListItemText primary="Events" />

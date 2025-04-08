@@ -335,6 +335,57 @@ app.get("/admin/dashboard", async (req,res) => {
 })
 
 
+const eventsSchema = new mongoose.Schema({
+   owner: String,
+   eventType: String,
+   decorationtheme:String,
+   stage:Number,
+   fullhall:Number,
+   cost:Number,
+   image:String
+});
+
+const Events = mongoose.model("Event", eventSchema);
+
+app.post("/AddEvent", upload.single("image"), async (req, res) => {
+   try {
+    
+      console.log(req.body);
+      
+      const eventData = req.body;
+      eventData.image = req.file ? req.file.path : "";
+      const newEvent = new Events(eventData);
+      await newEvent.save();
+
+      const user= await UserModel.find()
+
+      user.map(async (user)=>{
+
+        if( user.role=="user"){
+
+         await sendEventLaunch(user.email,newEvent)
+
+        }
+
+      })
+
+      await 
+
+      res.status(201).json(newEvent);
+   } catch (error) {
+      res.status(500).json({ error: "Failed to save the event to MongoDB" });
+   }
+});
+
+app.get("/AddEvent", async (req, res) => {
+   try {
+      const events = await Events.find();
+      res.status(200).json(events);
+   } catch (error) {
+      res.status(500).json({ error: "Failed to fetch events from MongoDB" });
+   }
+});
+
 
 app.use("/api/events", require("./routes/events"));
 app.use("/api", require("./routes/booking"));

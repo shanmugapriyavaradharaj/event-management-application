@@ -34,9 +34,13 @@ export default function LoginPage() {
         alert('Login success');
 
         if (data.role==="user") {
+          window.location.reload()
           navigate("/")
+          window.location.reload()
         }else{
+          window.location.reload()
           navigate("/admin")
+          window.location.reload()
         }
 
         if (rememberMe) {
