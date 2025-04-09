@@ -4,8 +4,6 @@ require('dotenv').config();
 
 
 
-
-
 const getBookingConfirmationEmailTemplate = (booking) => {
     return `
     <!DOCTYPE html>

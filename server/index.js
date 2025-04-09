@@ -346,7 +346,7 @@ const eventsSchema = new mongoose.Schema({
   
 });
 
-const Events = mongoose.model("Event", eventsSchema);
+const EventType = mongoose.model("EventType", eventsSchema);
 
 app.post("/admin/EventType", upload.single("image"), async (req, res) => {
    try {
@@ -355,12 +355,12 @@ app.post("/admin/EventType", upload.single("image"), async (req, res) => {
       
       const eventData = req.body;
       eventData.image = req.file ? req.file.path : "";
-      const newEvent = new Events(eventData);
+      const newEvent = new EventType(eventData);
       await newEvent.save();
 
-      const admin= await adminModel.find()
+      const admin= await UserModel.find()
 
-      user.map(async (admin)=>{
+      admin.map(async (admin)=>{
 
         if( user.role=="admin"){
 
@@ -380,7 +380,7 @@ app.post("/admin/EventType", upload.single("image"), async (req, res) => {
 
 app.get("/admin/EventType", async (req, res) => {
    try {
-      const events = await Events.find();
+      const events = await EventType.find();
       res.status(200).json(events);
    } catch (error) {
       res.status(500).json({ error: "Failed to fetch events from MongoDB" });
