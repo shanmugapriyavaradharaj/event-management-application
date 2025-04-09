@@ -36,7 +36,7 @@ export default function EventType() {
     
     e.preventDefault();
     axios
-      .post("/AddEvent", formData,{headers: {
+      .post("/admin/EventType", formData,{headers: {
         
         'Content-Type': 'multipart/form-data',
     }})
@@ -51,7 +51,7 @@ export default function EventType() {
 
   return (
     <div className='flex flex-col ml-20 mt-10'>
-      <div><h1 className='font-bold text-[36px] mb-5'>Post an Event</h1></div>
+      <div><h1 className='font-bold text-[36px] mb-5'>Add Event</h1></div>
       
       <form onSubmit={handleSubmit} className='flex flex-co'>
       <div className='flex flex-col gap-5'>

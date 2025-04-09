@@ -52,7 +52,7 @@ export default function Venue() {
 
   return (
     <div className='flex flex-col ml-20 mt-10'>
-      <div><h1 className='font-bold text-[36px] mb-5'>Post an Event</h1></div>
+      <div><h1 className='font-bold text-[36px] mb-5'>Add Venue</h1></div>
       
       <form onSubmit={handleSubmit} className='flex flex-co'>
       <div className='flex flex-col gap-5'>
