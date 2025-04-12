@@ -335,64 +335,11 @@ app.get("/admin/dashboard", async (req,res) => {
 })
 
 
-const eventsSchema = new mongoose.Schema({
-   owner: String,
-   eventType: String,
-   decorationtheme:String,
-   stage:Number,
-   fullhall:Number,
-   images: String,
-   cost:Number
-  
-});
-
-const EventType = mongoose.model("EventType", eventsSchema);
-
-app.post("/admin/EventType", upload.single("image"), async (req, res) => {
-   try {
-    
-      console.log(req.body);
-      
-      const eventData = req.body;
-      eventData.image = req.file ? req.file.path : "";
-      const newEvent = new EventType(eventData);
-      await newEvent.save();
-
-      const admin= await UserModel.find()
-
-      admin.map(async (admin)=>{
-
-        if( user.role=="admin"){
-
-         await sendEventLaunch(admin.email,newEvent)
-
-        }
-
-      })
-
-      await 
-
-      res.status(201).json(newEvent);
-   } catch (error) {
-      res.status(500).json({ error: "Failed to save the event to MongoDB" });
-   }
-});
-
-app.get("/admin/EventType", async (req, res) => {
-   try {
-      const events = await EventType.find();
-      res.status(200).json(events);
-   } catch (error) {
-      res.status(500).json({ error: "Failed to fetch events from MongoDB" });
-   }
-});
-
 
 app.use("/api/events", require("./routes/events"));
 app.use("/api", require("./routes/booking"));
-
-
-
+app.use('/api/admin',  require('./routes/admin.event.routes'));
+app.use('/api/private',  require('./routes/private.booking'));
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {

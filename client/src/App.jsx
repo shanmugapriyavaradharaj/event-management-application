@@ -37,6 +37,11 @@ import AllTicketDetails from './pages/admin/tickets/TicketPage'
 import UnauthorizedPage from './unauthorised'
 import Hotel from './pages/admin/Hotel'
 import Transportation from './pages/admin/Transportation'
+import AddEventType from './pages/privateevents/addeventype'
+import AddVenue from './pages/privateevents/addvenue'
+import AddAccommodation from './pages/privateevents/addaccomendation'
+import AddTransportation from './pages/privateevents/addtranportation'
+import BookingStepper from './pages/privateventsbookings/privateeventbooking'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials = true;
@@ -71,6 +76,7 @@ function App() {
         <Route path='/success' element={<PaymentSuccess />} />
         <Route path="/booking/:eventId" element={<Booking />} />
         <Route path='/eventall' element={<Eventsall />} />
+        <Route path='/BookingStepper' element={<BookingStepper />} />
 
         {/* admin */}
 
@@ -82,10 +88,10 @@ function App() {
               {
                 user.role === "admin" ? <>
                   <Route path='/createEvent' element={<AddEvent />} />
-                  <Route path='/admin/EventType' element={<EventType />} />
-                  <Route path='/admin/Venue' element={<Venue />} />
-                  <Route path='/admin/Hotel' element={<Hotel />} />
-                  <Route path='/admin/Transportation' element={<Transportation/>}/>
+                  <Route path='/admin/EventType' element={<AddEventType />} />
+                  <Route path='/admin/Venue' element={<AddVenue />} />
+                  <Route path='/admin/Hotel' element={<AddAccommodation />} />
+                  <Route path='/admin/Transportation' element={<AddTransportation />} />
                   <Route path='/admin/private-events-list' element={<PrivateEventList />} />
                   <Route path='/admin' element={<AdminDashboard />} />
                   <Route path='/admin/usermanagement' element={<UserDashboard />} />
@@ -93,13 +99,18 @@ function App() {
                   <Route path='/admin/private-events' element={<CreateEvent />} />
                   <Route path='/admin/bookingtable' element={<BookingTable />} />
                   <Route path='/admin/booked-tickets' element={<AllTicketDetails />} />
+{/* 
+                  <Route path='/addeventtype' element={<AddEventType />} />
+                  <Route path='/addvenue' element={<AddVenue />} />
+                  <Route path='/add-accommodation' element={<AddAccommodation />} />
+                  <Route path='/add-transportation' element={<AddTransportation />} /> */}
                 </> : null
 
               }
             </>
           )
         }
-        ~
+        
         <Route path='/*' element={<UnauthorizedPage />} />
       </Routes>
     </UserContextProvider>

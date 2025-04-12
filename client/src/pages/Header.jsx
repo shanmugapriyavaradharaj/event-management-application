@@ -102,6 +102,15 @@ export default function Header() {
             <div className='font-bold color-primary text-sm'>Private Events</div>
           </div>
         </Link>
+        <Link to={'/BookingStepper'}> {/*TODO:Route create event page after creating it */}
+          <div className='hidden md:flex flex-col place-items-center py-1 px-2 rounded text-primary cursor-pointer hover:text-primarydark hover:bg-white hover:shadow-sm shadow-gray-200 hover:transition-shadow duration-1500'>
+            <button>
+
+            </button>
+            <div className='font-bold color-primary text-sm'>Book Private Events</div>
+          </div>
+        </Link>
+       
 
         {
           user && <>

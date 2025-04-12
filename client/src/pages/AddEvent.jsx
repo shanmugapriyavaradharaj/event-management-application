@@ -1,6 +1,7 @@
 import  { useContext, useState } from 'react';
 import axios from 'axios';
 import { UserContext } from '../UserContext';
+import Sidebar from './admin/sidebar/sidebar';
 
 export default function AddEvent() {
   const {user} = useContext(UserContext);
@@ -55,7 +56,9 @@ export default function AddEvent() {
   };
 
   return (
-    <div className='flex flex-col ml-20 mt-10'>
+    <>
+      <Sidebar/>
+    <div className='' style={{marginLeft:"470px"}}>
       <div><h1 className='font-bold text-[36px] mb-5'>Post an Event</h1></div>
       
       <form onSubmit={handleSubmit} className='flex flex-co'>
@@ -167,5 +170,6 @@ export default function AddEvent() {
         
       </form>
     </div>
+    </>
   );
 }
