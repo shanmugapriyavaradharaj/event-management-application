@@ -227,6 +227,8 @@ export default function Header() {
                         Create Event
                       </Link>
 
+
+
                     </>
                   )
                 }
@@ -240,6 +242,11 @@ export default function Header() {
                 <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/mybooking-details'}>
                   <div>My Booking Details</div>
                 </Link>
+                
+                <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/my-private-bookings'}>
+                  <div>my-private-bookings</div>
+                </Link>
+                
 
                 <Link className="flex hover:bg-background hover:shadow py-2 pl-6 pr-8 rounded-lg" to={'/verification'}>
                   <div>Center</div>

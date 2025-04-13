@@ -341,6 +341,7 @@ app.use("/api", require("./routes/booking"));
 app.use('/api/admin',  require('./routes/admin.event.routes'));
 app.use('/api/private',  require('./routes/private.booking'));
 
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
    console.log(`Server is running on port ${PORT}`);

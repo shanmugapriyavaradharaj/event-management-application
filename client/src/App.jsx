@@ -42,6 +42,8 @@ import AddVenue from './pages/privateevents/addvenue'
 import AddAccommodation from './pages/privateevents/addaccomendation'
 import AddTransportation from './pages/privateevents/addtranportation'
 import BookingStepper from './pages/privateventsbookings/privateeventbooking'
+import MyPrivateBookings from './pages/privateventsbookings/mybookings'
+import AllPrivateBookings from './pages/privateventsbookings/allbookings'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials = true;
@@ -77,7 +79,9 @@ function App() {
         <Route path="/booking/:eventId" element={<Booking />} />
         <Route path='/eventall' element={<Eventsall />} />
         <Route path='/BookingStepper' element={<BookingStepper />} />
-
+        <Route path='/my-private-bookings' element={<MyPrivateBookings />} />
+        
+        
         {/* admin */}
 
         {/* http://localhost:5173/admin/register */}
@@ -99,6 +103,8 @@ function App() {
                   <Route path='/admin/private-events' element={<CreateEvent />} />
                   <Route path='/admin/bookingtable' element={<BookingTable />} />
                   <Route path='/admin/booked-tickets' element={<AllTicketDetails />} />
+                  <Route path='/admin/all-private-bookings' element={< AllPrivateBookings />} />
+                 
 {/* 
                   <Route path='/addeventtype' element={<AddEventType />} />
                   <Route path='/addvenue' element={<AddVenue />} />

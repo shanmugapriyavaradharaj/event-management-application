@@ -66,12 +66,17 @@ export default function Sidebar() {
                                         <ListItemText primary="Private-Events-Bookings" />
                                     </ListItem>
                                 </Link>
-        
+                                <Link to={"/admin/all-private-bookings"}>
+                                    <ListItem button>
+                                        <ListItemText primary="Private--Bookings" />
+                                    </ListItem>
+                                </Link>
+                                
         
                                 <Link to={"/admin/booked-tickets"}>
-                                <ListItem button>
-                                    <ListItemText primary="Total Booked Tickets" />
-                                </ListItem>
+                                    <ListItem button>
+                                        <ListItemText primary="Total Booked Tickets" />
+                                    </ListItem>
                                 </Link>
 
 

@@ -22,6 +22,19 @@ exports.getAllBookings = async (req, res) => {
   }
 };
 
+// Get all bookings
+exports.getMyAllBookings = async (req, res) => {
+  try {
+    const bookings = await Booking.find({userId:req.params.id})
+      .populate('userId eventType venue accommodation transportation');
+    res.status(200).json(bookings);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
+
 // Get booking by ID
 exports.getBookingById = async (req, res) => {
   try {
