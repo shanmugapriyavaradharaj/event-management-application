@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Grid,
-  CircularProgress,
-  Slide,
-  CardMedia,
-  CardActions,
-  Chip
+  Box, Card, CardContent, Typography, Button, Grid, CircularProgress,
+  Slide, CardMedia, CardActions, Chip, Rating, Dialog, DialogTitle,
+  DialogContent, DialogActions, TextField
 } from '@mui/material';
-import { Download, PictureAsPdf } from '@mui/icons-material';
+import { Download, PictureAsPdf, Feedback as FeedbackIcon } from '@mui/icons-material';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import Carousel from 'react-material-ui-carousel';
@@ -21,6 +13,11 @@ const MyPrivateBookings = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const [openFeedback, setOpenFeedback] = useState(false);
+  const [selectedBookingId, setSelectedBookingId] = useState(null);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
 
   const fetchBookings = async () => {
     try {
@@ -36,6 +33,39 @@ const MyPrivateBookings = () => {
   useEffect(() => {
     fetchBookings();
   }, []);
+
+  const handleOpenFeedback = (bookingId) => {
+    setSelectedBookingId(bookingId);
+    setRating(0);
+    setComment('');
+    setOpenFeedback(true);
+  };
+
+  const handleFeedbackSubmit = async () => {
+    try {
+      const res = await fetch('http://localhost:4000/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bookingId: selectedBookingId,
+          userId: user._id,
+          rating,
+          comment,
+        })
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert('Feedback submitted successfully!');
+        setOpenFeedback(false);
+      } else {
+        alert(result.message || 'Something went wrong');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error submitting feedback');
+    }
+  };
 
   const exportToExcel = () => {
     const worksheet = XLSX.utils.json_to_sheet(bookings.map(b => ({
@@ -76,7 +106,7 @@ const MyPrivateBookings = () => {
   if (loading) return <Box display="flex" justifyContent="center" mt={5}><CircularProgress /></Box>;
 
   return (
-    <Box p={6+6}>
+    <Box p={6}>
       <Typography variant="h4" mb={3} fontWeight="bold" textAlign="center" color="primary">My Bookings</Typography>
 
       <Box display="flex" justifyContent="center" gap={2} mb={3}>
@@ -141,9 +171,13 @@ const MyPrivateBookings = () => {
                     <Typography variant="body2">Price: ₹{booking.transportation?.price}</Typography>
                   </Box>
                 </CardContent>
+
                 <CardActions sx={{ justifyContent: 'center' }}>
                   <Button variant="outlined" size="small" color="error" startIcon={<PictureAsPdf />} onClick={() => downloadPDF(booking, index)}>
                     Download PDF
+                  </Button>
+                  <Button variant="contained" size="small" color="primary" startIcon={<FeedbackIcon />} onClick={() => handleOpenFeedback(booking._id)}>
+                    Give Feedback
                   </Button>
                 </CardActions>
               </Card>
@@ -151,6 +185,28 @@ const MyPrivateBookings = () => {
           </Slide>
         ))}
       </Grid>
+
+      {/* Feedback Dialog */}
+      <Dialog open={openFeedback} onClose={() => setOpenFeedback(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>Rate Your Experience</DialogTitle>
+        <DialogContent>
+          <Typography gutterBottom>Rating:</Typography>
+          <Rating value={rating} onChange={(e, newValue) => setRating(newValue)} />
+          <TextField
+            label="Comment"
+            fullWidth
+            multiline
+            rows={3}
+            margin="normal"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenFeedback(false)}>Cancel</Button>
+          <Button onClick={handleFeedbackSubmit} variant="contained" color="primary">Submit</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

@@ -78,6 +78,12 @@ export default function Sidebar() {
                                         <ListItemText primary="Total Booked Tickets" />
                                     </ListItem>
                                 </Link>
+                                <Link to={"/AdminFeedbackPage"}>
+                                    <ListItem button>
+                                        <ListItemText primary="All Feedbacks" />
+                                    </ListItem>
+                                </Link>
+                                
 
 
                             </List>

@@ -340,6 +340,37 @@ app.use("/api/events", require("./routes/events"));
 app.use("/api", require("./routes/booking"));
 app.use('/api/admin',  require('./routes/admin.event.routes'));
 app.use('/api/private',  require('./routes/private.booking'));
+app.use('/api/feedback',  require('./routes/feedbackRoutes'));
+
+app.post("/chat", async (req, res) => {
+   const { prompt } = req.body;
+ 
+   try {
+      const fetchResponse = await fetch("http://localhost:11434/api/generate", {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+           model: "llama3.2",
+           prompt: prompt,
+         }),
+       });
+       
+       const data = await fetchResponse.text(); // response is streamed as plain text
+       const lines = data.trim().split("\n");
+       const messages = lines.map((line) => JSON.parse(line));
+       const fullResponse = messages.map((m) => m.response).join("");
+       
+       res.json({ reply: fullResponse });
+       
+ 
+    
+   } catch (error) {
+     console.error("Error talking to Ollama:", error.message);
+     res.status(500).json({ error: "Failed to generate response" });
+   }
+ });
 
 
 const PORT = process.env.PORT || 4000;

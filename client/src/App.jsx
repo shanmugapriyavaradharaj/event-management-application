@@ -44,6 +44,8 @@ import AddTransportation from './pages/privateevents/addtranportation'
 import BookingStepper from './pages/privateventsbookings/privateeventbooking'
 import MyPrivateBookings from './pages/privateventsbookings/mybookings'
 import AllPrivateBookings from './pages/privateventsbookings/allbookings'
+import AdminFeedbackPage from './pages/Feedbacks/AdminFeedbackPage'
+import Chatbot from './pages/chatbot/chat'
 
 axios.defaults.baseURL = 'http://localhost:4000/';
 axios.defaults.withCredentials = true;
@@ -59,6 +61,8 @@ function App() {
 
 
         {/*user   */}
+
+
 
         <Route path='/' element={<Layout />}>
           <Route index element={<IndexPage />} />
@@ -104,12 +108,15 @@ function App() {
                   <Route path='/admin/bookingtable' element={<BookingTable />} />
                   <Route path='/admin/booked-tickets' element={<AllTicketDetails />} />
                   <Route path='/admin/all-private-bookings' element={< AllPrivateBookings />} />
+                  <Route path='/AdminFeedbackPage' element={< AdminFeedbackPage />} />
+                  
                  
-{/* 
+                 {/* 
                   <Route path='/addeventtype' element={<AddEventType />} />
                   <Route path='/addvenue' element={<AddVenue />} />
                   <Route path='/add-accommodation' element={<AddAccommodation />} />
-                  <Route path='/add-transportation' element={<AddTransportation />} /> */}
+                  <Route path='/add-transportation' element={<AddTransportation />} /> */}      
+
                 </> : null
 
               }
@@ -119,6 +126,7 @@ function App() {
         
         <Route path='/*' element={<UnauthorizedPage />} />
       </Routes>
+        <Chatbot/>
     </UserContextProvider>
 
   )
