@@ -7,15 +7,18 @@ import {
   Button,
   Grid,
   CircularProgress,
-  Slide
+  Slide,
+  CardMedia,
+  CardActions,
+  Chip
 } from '@mui/material';
 import { Download, PictureAsPdf } from '@mui/icons-material';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
+import Carousel from 'react-material-ui-carousel';
 
 const MyPrivateBookings = () => {
-
-const user=JSON.parse(localStorage.getItem("user"))
+  const user = JSON.parse(localStorage.getItem("user"));
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,61 +50,102 @@ const user=JSON.parse(localStorage.getItem("user"))
     XLSX.writeFile(workbook, 'MyBookings.xlsx');
   };
 
-  const exportToPDF = () => {
+  const downloadPDF = (booking, index) => {
     const doc = new jsPDF();
-    let y = 10;
+    doc.text(`Booking #${index + 1}`, 10, 10);
+    doc.text(`Date: ${new Date(booking.bookingDate).toLocaleDateString()}`, 10, 20);
+    doc.text(`Status: ${booking.status}`, 10, 30);
+    doc.text(`Payment Method: ${booking.payment?.method || 'N/A'}`, 10, 40);
+    doc.text(`Amount: ₹${booking.payment?.amount || 0}`, 10, 50);
+    doc.text(`Payment Status: ${booking.payment?.status || 'N/A'}`, 10, 60);
+    doc.text(`Venue: ${booking.venue?.venueName || 'N/A'} - ${booking.venue?.location || ''}`, 10, 70);
+    doc.text(`Accommodation: ${booking.accommodation?.hotelName || 'N/A'} (${booking.accommodation?.roomType || ''})`, 10, 80);
+    doc.text(`Transport: ${booking.transportation?.transportType || 'N/A'} (${booking.transportation?.category || ''})`, 10, 90);
+    doc.save(`Booking_${index + 1}.pdf`);
+  };
 
-    bookings.forEach((b, index) => {
-      doc.setFillColor(240, 240, 240);
-      doc.roundedRect(10, y, 190, 60, 5, 5, 'F');
-      doc.setFontSize(12);
-      doc.text(`Booking #${index + 1}`, 15, y + 10);
-      doc.text(`Date: ${new Date(b.bookingDate).toLocaleDateString()}`, 15, y + 20);
-      doc.text(`Status: ${b.status}`, 15, y + 30);
-      doc.text(`Payment Method: ${b.payment?.method || 'N/A'}`, 15, y + 40);
-      doc.text(`Amount: ₹${b.payment?.amount || 0}`, 15, y + 50);
-      doc.text(`Payment Status: ${b.payment?.status || 'N/A'}`, 15, y + 60);
-
-      y += 70;
-      if (y > 250) {
-        doc.addPage();
-        y = 10;
-      }
-    });
-
-    doc.save('MyBookings.pdf');
+  const getStatusColor = (status) => {
+    switch (status.toLowerCase()) {
+      case 'pending': return 'warning';
+      case 'paid': return 'success';
+      case 'cancelled': return 'error';
+      default: return 'default';
+    }
   };
 
   if (loading) return <Box display="flex" justifyContent="center" mt={5}><CircularProgress /></Box>;
 
   return (
-    <Box p={4}>
+    <Box p={6+6}>
       <Typography variant="h4" mb={3} fontWeight="bold" textAlign="center" color="primary">My Bookings</Typography>
 
-      <Box display="flex" justifyContent="center" gap={2} mb={4}>
+      <Box display="flex" justifyContent="center" gap={2} mb={3}>
         <Button variant="contained" color="success" startIcon={<Download />} onClick={exportToExcel}>
-          Export to Excel
-        </Button>
-        <Button variant="contained" color="error" startIcon={<PictureAsPdf />} onClick={exportToPDF}>
-          Export to PDF
+          Export All to Excel
         </Button>
       </Box>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         {bookings.map((booking, index) => (
           <Slide direction="up" in={true} mountOnEnter unmountOnExit key={index}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Card elevation={6} sx={{ borderRadius: 3, transition: '0.3s', '&:hover': { transform: 'scale(1.03)' } }}>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom fontWeight="bold">
-                    Booking #{index + 1}
-                  </Typography>
-                  <Typography>Date: {new Date(booking.bookingDate).toLocaleDateString()}</Typography>
-                  <Typography>Status: {booking.status}</Typography>
-                  <Typography>Payment Method: {booking.payment?.method || 'N/A'}</Typography>
-                  <Typography>Amount: ₹{booking.payment?.amount || 0}</Typography>
-                  <Typography>Payment Status: {booking.payment?.status || 'N/A'}</Typography>
+            <Grid item xs={12} sm={6} md={3}>
+              <Card elevation={6} sx={{
+                borderRadius: 3,
+                transition: '0.3s',
+                bgcolor: '#fff5f8',
+                p: 1,
+                '&:hover': { transform: 'scale(1.02)' }
+              }}>
+                <Carousel autoPlay={false} navButtonsAlwaysVisible indicators={false}>
+                  {[...booking.eventType.images, ...booking.venue.images].map((img, i) => (
+                    <CardMedia
+                      key={i}
+                      component="img"
+                      height="80"
+                      image={img.replace('\\', '/')}
+                      alt={`image-${i}`}
+                      sx={{ objectFit: 'cover', borderRadius: 2, p: 1 }}
+                    />
+                  ))}
+                </Carousel>
+                <CardContent sx={{ p: 1 }}>
+                  <Typography variant="subtitle1" fontWeight="bold">Booking #{index + 1}</Typography>
+                  <Typography variant="body2">Date: {new Date(booking.bookingDate).toLocaleDateString()}</Typography>
+                  <Chip label={booking.status} color={getStatusColor(booking.status)} variant="outlined" size="small" sx={{ mt: 1 }} />
+
+                  <Box mt={1}>
+                    <Typography variant="caption" fontWeight="bold">Payment</Typography>
+                    <Typography variant="body2">Method: {booking.payment?.method || 'N/A'}</Typography>
+                    <Typography variant="body2">Amount: ₹{booking.payment?.amount || 0}</Typography>
+                    <Typography variant="body2">Status: {booking.payment?.status || 'N/A'}</Typography>
+                  </Box>
+
+                  <Box mt={1}>
+                    <Typography variant="caption" fontWeight="bold">Venue</Typography>
+                    <Typography variant="body2">Name: {booking.venue?.venueName}</Typography>
+                    <Typography variant="body2">Location: {booking.venue?.location}</Typography>
+                  </Box>
+
+                  <Box mt={1}>
+                    <Typography variant="caption" fontWeight="bold">Accommodation</Typography>
+                    <Typography variant="body2">Hotel: {booking.accommodation?.hotelName}</Typography>
+                    <Typography variant="body2">Type: {booking.accommodation?.roomType}</Typography>
+                    <Typography variant="body2">Duration: {booking.accommodation?.stayDuration} days</Typography>
+                  </Box>
+
+                  <Box mt={1}>
+                    <Typography variant="caption" fontWeight="bold">Transportation</Typography>
+                    <Typography variant="body2">Type: {booking.transportation?.transportType}</Typography>
+                    <Typography variant="body2">Distance: {booking.transportation?.distance} km</Typography>
+                    <Typography variant="body2">Category: {booking.transportation?.category}</Typography>
+                    <Typography variant="body2">Price: ₹{booking.transportation?.price}</Typography>
+                  </Box>
                 </CardContent>
+                <CardActions sx={{ justifyContent: 'center' }}>
+                  <Button variant="outlined" size="small" color="error" startIcon={<PictureAsPdf />} onClick={() => downloadPDF(booking, index)}>
+                    Download PDF
+                  </Button>
+                </CardActions>
               </Card>
             </Grid>
           </Slide>
